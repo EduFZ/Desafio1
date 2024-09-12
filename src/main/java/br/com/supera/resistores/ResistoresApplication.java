@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
@@ -13,60 +14,52 @@ public class ResistoresApplication {
 
 		SpringApplication.run(ResistoresApplication.class, args);
 
-		System.out.println(getResistorColorCode("47 ohms"));
-		System.out.println(getResistorColorCode("4.7k ohms"));
-		System.out.println(getResistorColorCode("1M ohms"));
-		System.out.println(getResistorColorCode("10 ohms"));
-		System.out.println(getResistorColorCode("220 ohms"));
-		System.out.println(getResistorColorCode("1k ohms"));
-		System.out.println(getResistorColorCode("100 ohms"));
-		System.out.println(getResistorColorCode("330 ohms"));
-		System.out.println(getResistorColorCode("470 ohms"));
-		System.out.println(getResistorColorCode("680 ohms"));
-		System.out.println(getResistorColorCode("2M ohms"));
+		System.out.println(Resistores.getResistorColorCode("47 ohms"));
+		System.out.println(Resistores.getResistorColorCode("4.7k ohms"));
+		System.out.println(Resistores.getResistorColorCode("1M ohms"));
+		System.out.println(Resistores.getResistorColorCode("10 ohms"));
+		System.out.println(Resistores.getResistorColorCode("220 ohms"));
+		System.out.println(Resistores.getResistorColorCode("1k ohms"));
+		System.out.println(Resistores.getResistorColorCode("100 ohms"));
+		System.out.println(Resistores.getResistorColorCode("330 ohms"));
+		System.out.println(Resistores.getResistorColorCode("470 ohms"));
+		System.out.println(Resistores.getResistorColorCode("680 ohms"));
+		System.out.println(Resistores.getResistorColorCode("2M ohms"));
 
-	}
 
-	private static final Map<Integer, String> colorMap = new HashMap<>();
+		System.out.println("\n Desafio Snail: \n");
 
-	static {
-		colorMap.put(0, "preto");
-		colorMap.put(1, "marrom");
-		colorMap.put(2, "vermelho");
-		colorMap.put(3, "laranja");
-		colorMap.put(4, "amarelo");
-		colorMap.put(5, "verde");
-		colorMap.put(6, "azul");
-		colorMap.put(7, "violeta");
-		colorMap.put(8, "cinza");
-		colorMap.put(9, "branco");
-	}
+		int[][] matriz1 = {
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 9}
+		};
 
-	public static String getResistorColorCode(String input) {
+		int[][] matriz2 = {
+				{1, 2, 3},
+				{4, 10, 12},
+				{6, 7, 33}
+		};
 
-		String valueString = input.replace(" ohms", "");
-		double value;
+		int[][] matriz3 = {
+				{1, 2, 3, 1},
+				{4, 5, 6, 4},
+				{7, 8, 9, 7},
+				{7, 8, 9, 7}
+		};
 
-		if (valueString.endsWith("k")) {
-			value = Double.parseDouble(valueString.replace("k", "")) * 1_000;
-		} else if (valueString.endsWith("M")) {
-			value = Double.parseDouble(valueString.replace("M", "")) * 1_000_000;
-		} else {
-			value = Double.parseDouble(valueString);
-		}
+		int[][] emptyMatriz = {};
 
-		String stringValue = String.valueOf((int) value);
-		int firstDigit = Character.getNumericValue(stringValue.charAt(0));
-		int secondDigit = stringValue.length() > 1 ? Character.getNumericValue(stringValue.charAt(1)) : 0;
-		int multiplier = stringValue.length() - 2;
+		List<Integer> result1 = Snail.spiralOrder(matriz1);
+		List<Integer> result2 = Snail.spiralOrder(matriz2);
+		List<Integer> result3 = Snail.spiralOrder(matriz3);
+		List<Integer> result4 = Snail.spiralOrder(emptyMatriz);
 
-		StringBuilder colorCode = new StringBuilder();
-		colorCode.append(colorMap.get(firstDigit)).append(" ");
-		colorCode.append(colorMap.get(secondDigit)).append(" ");
-		colorCode.append(colorMap.get(multiplier)).append(" ");
-		colorCode.append("dourado");
+		System.out.println(result1);
+		System.out.println(result2);
+		System.out.println(result3);
+		System.out.println(result4);
 
-		return colorCode.toString();
 	}
 
 }
